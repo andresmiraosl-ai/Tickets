@@ -39,12 +39,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);min-height:1
 .main{display:flex;flex-direction:column;min-height:100vh}
 .topbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:0.875rem 1.5rem;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:20;flex-wrap:wrap}
 .topbar-title{font-family:var(--font);font-size:14px;font-weight:700;color:var(--text);flex:0 0 auto}
-.search-wrap{position:relative;flex:1;min-width:180px;max-width:320px}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:300px}
 .search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none}
 .search{width:100%;padding:7px 12px 7px 32px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--body);font-size:13px;transition:border-color 0.15s}
 .search:focus{outline:none;border-color:rgba(232,255,71,0.4)}
 .search::placeholder{color:var(--text3)}
-.sede-sel{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text2);font-family:var(--body);font-size:12px;padding:7px 10px;cursor:pointer}
+.sede-sel{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text2);font-family:var(--body);font-size:12px;padding:7px 10px;cursor:pointer;max-width:180px}
 .sede-sel:focus{outline:none}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:8px;font-size:13px;font-weight:600;font-family:var(--font);cursor:pointer;transition:all 0.12s;border:none;letter-spacing:-0.01em}
 .btn-accent{background:var(--accent);color:#09090b}
@@ -88,8 +88,8 @@ thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-
 .p3{background:rgba(248,113,113,0.12);color:#fca5a5}
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;z-index:100;overflow-y:auto}
 .overlay.hidden{display:none}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:560px;padding:1.75rem;animation:su 0.2s ease}
-.modal-lg{max-width:660px}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:580px;padding:1.75rem;animation:su 0.2s ease}
+.modal-lg{max-width:700px}
 .mh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem}
 .mh h2{font-family:var(--font);font-size:17px;font-weight:700;letter-spacing:-0.02em}
 .mh-sub{font-size:11px;color:var(--text3);margin-top:3px;font-family:var(--font)}
@@ -118,21 +118,38 @@ thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-
 .ds h4{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:8px;font-family:var(--font);font-weight:700}
 .dd{font-size:13px;color:var(--text2);line-height:1.7;background:var(--bg3);border-radius:var(--r);padding:11px;min-height:60px;border:1px solid transparent;transition:border-color 0.15s}
 .dd:focus{outline:none;border-color:rgba(232,255,71,0.3);color:var(--text)}
-.div{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
-.cl{max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.ci{background:var(--bg3);border-radius:var(--r);padding:8px 11px;border:1px solid var(--border)}
-.cd{font-size:10px;color:var(--text3);font-family:var(--font);margin-bottom:3px;font-weight:700}
-.ct{font-size:13px;color:var(--text2);line-height:1.5}
-.ca2{display:flex;gap:8px}
+.divhr{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
+.cl{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.ci{background:var(--bg3);border-radius:var(--r);padding:10px 12px;border:1px solid var(--border)}
+.cd{font-size:10px;color:var(--text3);font-family:var(--font);margin-bottom:5px;font-weight:700}
+.ct{font-size:13px;color:var(--text2);line-height:1.6;word-break:break-word}
+.c-img{margin-top:8px;border-radius:8px;overflow:hidden;border:1px solid var(--border2);background:var(--bg4)}
+.c-img img{width:100%;max-height:260px;object-fit:contain;display:block;cursor:zoom-in;transition:opacity 0.15s}
+.c-img img:hover{opacity:0.85}
+.c-img-url{font-size:10px;color:var(--text3);padding:4px 8px;text-align:center;word-break:break-all}
+.ca2{display:flex;flex-direction:column;gap:8px}
+.ca2-row{display:flex;gap:8px}
 .ca2 input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--body);font-size:13px;padding:8px 11px;transition:border-color 0.15s}
 .ca2 input:focus{outline:none;border-color:rgba(232,255,71,0.4)}
 .ca2 input::placeholder{color:var(--text3)}
-@keyframes su{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.img-add-wrap{display:flex;gap:8px;align-items:center}
+.img-add-wrap input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-family:var(--body);font-size:13px;padding:8px 11px;transition:border-color 0.15s}
+.img-add-wrap input:focus{outline:none;border-color:rgba(232,255,71,0.4)}
+.img-add-wrap input::placeholder{color:var(--text3)}
+.img-hint{font-size:11px;color:var(--text3);padding:6px 10px;background:rgba(232,255,71,0.04);border-radius:6px;border:1px solid rgba(232,255,71,0.1)}
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:300;display:flex;align-items:center;justify-content:center;cursor:zoom-out;animation:su 0.15s ease}
+.lightbox.hidden{display:none}
+.lightbox img{max-width:94vw;max-height:92vh;border-radius:10px;object-fit:contain;cursor:default}
+.lb-close{position:fixed;top:1rem;right:1.25rem;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;color:var(--text2);padding:6px 14px;font-size:13px;cursor:pointer;font-family:var(--font);font-weight:600;z-index:301}
+.lb-close:hover{color:var(--text)}
+@keyframes su{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}
-@media(max-width:780px){.layout{grid-template-columns:1fr}.sidebar{display:none}.stats{grid-template-columns:repeat(3,1fr)}.fg2{grid-template-columns:1fr}.dg{grid-template-columns:1fr}}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.sidebar{display:none}.stats{grid-template-columns:repeat(3,1fr)}.fg2{grid-template-columns:1fr}.dg{grid-column:1fr}}
 </style>
 </head>
 <body>
+
 <div class="layout">
 <aside class="sidebar">
   <div class="logo">
@@ -160,6 +177,7 @@ thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-
     <div class="sb-stat"><span class="sb-stat-l">Sin resolver</span><span class="sb-stat-n" id="s-p">0</span></div>
   </div>
 </aside>
+
 <div class="main">
   <header class="topbar">
     <div class="topbar-title" id="vt">Todos los tickets</div>
@@ -169,13 +187,41 @@ thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-
     </div>
     <select class="sede-sel" id="sede-f" onchange="render()">
       <option value="">Todas las sedes</option>
-      <option>Bogotá</option><option>Medellín</option><option>Cali</option><option>Barranquilla</option><option>Bucaramanga</option><option>Otra</option>
+      <optgroup label="Medellín">
+        <option>OSL Suramericana</option><option>OSL Arkadia</option><option>OSL Bolivariana</option>
+        <option>OSL Pablo Tobón</option><option>OSL Florida</option><option>OSL Plaza Fabricato</option>
+        <option>OSL Florida 2</option><option>Clínica Sede Poblado</option><option>OSL Premium Plaza</option>
+        <option>OSL Punto Clave</option><option>OSL Molinos</option><option>OSL Sandiego</option>
+        <option>OSL Estación Niquía</option><option>OSL Bello</option><option>OSL Puerta del Norte</option>
+        <option>Clínica Sede Niquía</option><option>OSL Oviedo</option><option>OSL El Tesoro</option>
+        <option>OSL Santa Fe</option><option>OSL Envigado 1</option><option>OSL Envigado 2</option>
+        <option>OSL Viva Envigado</option><option>OSL Alma Mater</option><option>OSL Sucre</option>
+        <option>OSL Avenida Oriental</option><option>OSL La Central</option><option>Patio Bonito</option>
+        <option>Clínica Bolivariana</option><option>Aventura</option><option>OSL Poblado</option>
+        <option>Casa Administrativa</option>
+      </optgroup>
+      <optgroup label="Rionegro">
+        <option>OSL Rionegro 1</option><option>OSL Rionegro 2</option>
+        <option>OSL Rionegro 3</option><option>OSL Rionegro 4</option>
+      </optgroup>
+      <optgroup label="Itagüí / Sur">
+        <option>OSL Itagüí 1</option><option>OSL Mayorca</option>
+        <option>OSL Arrayanes</option><option>OSL Mayorca 2</option>
+      </optgroup>
+      <optgroup label="Bogotá">
+        <option>Nuestro Bogotá</option><option>Andino</option>
+        <option>Gran Estación</option><option>Tunja</option>
+      </optgroup>
+      <optgroup label="Urabá">
+        <option>Plaza del Río</option><option>Nuestro Urabá</option>
+      </optgroup>
     </select>
     <button class="btn btn-accent" onclick="oc()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       Nuevo ticket
     </button>
   </header>
+
   <div class="content">
     <div class="stats">
       <div class="stat"><div class="stat-lbl">Total</div><div class="stat-n ca" id="st-t">0</div></div>
@@ -186,7 +232,15 @@ thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-
     </div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th style="width:65px">ID</th><th>Título</th><th style="width:115px">Estado</th><th style="width:95px">Prioridad</th><th style="width:130px">Responsable</th><th style="width:105px">Sede</th><th style="width:105px">Creado</th></tr></thead>
+        <thead><tr>
+          <th style="width:65px">ID</th>
+          <th style="width:170px">Sede</th>
+          <th>Requerimiento</th>
+          <th style="width:115px">Estado</th>
+          <th style="width:95px">Prioridad</th>
+          <th style="width:130px">Responsable</th>
+          <th style="width:100px">Creado</th>
+        </tr></thead>
         <tbody id="tb"></tbody>
       </table>
     </div>
@@ -194,69 +248,169 @@ thead th{text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-
 </div>
 </div>
 
+<!-- MODAL CREAR/EDITAR -->
 <div class="overlay hidden" id="m-c" onclick="bc(event,'m-c')">
   <div class="modal">
     <div class="mh"><div><h2 id="mt">Nuevo ticket</h2><div class="mh-sub" id="ms"></div></div><button class="xb" onclick="cl('m-c')">✕</button></div>
     <div class="fg2">
-      <div class="fg ff"><label>Título *</label><input id="ft" placeholder="Resumen breve del requerimiento"/></div>
-      <div class="fg ff"><label>Descripción</label><textarea id="fd" placeholder="Detalle completo..."></textarea></div>
-      <div class="fg"><label>Estado</label><select id="fs"><option value="abierto">Abierto</option><option value="en progreso">En progreso</option><option value="revisión">En revisión</option><option value="resuelto">Resuelto</option><option value="cerrado">Cerrado</option></select></div>
-      <div class="fg"><label>Prioridad</label><select id="fp"><option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta</option><option value="crítica">Crítica</option></select></div>
+      <div class="fg ff">
+        <label>Sede *</label>
+        <select id="fse">
+          <option value="">— Seleccionar sede —</option>
+          <optgroup label="Medellín">
+            <option>OSL Suramericana</option><option>OSL Arkadia</option><option>OSL Bolivariana</option>
+            <option>OSL Pablo Tobón</option><option>OSL Florida</option><option>OSL Plaza Fabricato</option>
+            <option>OSL Florida 2</option><option>Clínica Sede Poblado</option><option>OSL Premium Plaza</option>
+            <option>OSL Punto Clave</option><option>OSL Molinos</option><option>OSL Sandiego</option>
+            <option>OSL Estación Niquía</option><option>OSL Bello</option><option>OSL Puerta del Norte</option>
+            <option>Clínica Sede Niquía</option><option>OSL Oviedo</option><option>OSL El Tesoro</option>
+            <option>OSL Santa Fe</option><option>OSL Envigado 1</option><option>OSL Envigado 2</option>
+            <option>OSL Viva Envigado</option><option>OSL Alma Mater</option><option>OSL Sucre</option>
+            <option>OSL Avenida Oriental</option><option>OSL La Central</option><option>Patio Bonito</option>
+            <option>Clínica Bolivariana</option><option>Aventura</option><option>OSL Poblado</option>
+            <option>Casa Administrativa</option>
+          </optgroup>
+          <optgroup label="Rionegro">
+            <option>OSL Rionegro 1</option><option>OSL Rionegro 2</option>
+            <option>OSL Rionegro 3</option><option>OSL Rionegro 4</option>
+          </optgroup>
+          <optgroup label="Itagüí / Sur">
+            <option>OSL Itagüí 1</option><option>OSL Mayorca</option>
+            <option>OSL Arrayanes</option><option>OSL Mayorca 2</option>
+          </optgroup>
+          <optgroup label="Bogotá">
+            <option>Nuestro Bogotá</option><option>Andino</option>
+            <option>Gran Estación</option><option>Tunja</option>
+          </optgroup>
+          <optgroup label="Urabá">
+            <option>Plaza del Río</option><option>Nuestro Urabá</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="fg ff"><label>Requerimiento *</label><input id="ft" placeholder="Describe brevemente el requerimiento"/></div>
+      <div class="fg ff"><label>Descripción</label><textarea id="fd" placeholder="Detalle completo del requerimiento..."></textarea></div>
+      <div class="fg"><label>Estado</label>
+        <select id="fs"><option value="abierto">Abierto</option><option value="en progreso">En progreso</option><option value="revisión">En revisión</option><option value="resuelto">Resuelto</option><option value="cerrado">Cerrado</option></select>
+      </div>
+      <div class="fg"><label>Prioridad</label>
+        <select id="fp"><option value="baja">Baja</option><option value="media" selected>Media</option><option value="alta">Alta</option><option value="crítica">Crítica</option></select>
+      </div>
       <div class="fg"><label>Responsable</label><input id="fa" placeholder="Nombre completo"/></div>
-      <div class="fg"><label>Sede</label><select id="fse"><option value="">— Seleccionar —</option><option>Bogotá</option><option>Medellín</option><option>Cali</option><option>Barranquilla</option><option>Bucaramanga</option><option>Otra</option></select></div>
-      <div class="fg"><label>Categoría</label><select id="fc"><option value="">— Seleccionar —</option><option>Bug</option><option>Feature</option><option>Soporte</option><option>Infraestructura</option><option>Consulta</option><option>Otro</option></select></div>
       <div class="fg"><label>Fecha límite</label><input id="fdue" type="date"/></div>
     </div>
-    <div class="mf"><button class="btn btn-ghost" onclick="cl('m-c')">Cancelar</button><button class="btn btn-accent" id="fsv" onclick="sv()">Crear ticket</button></div>
+    <div class="mf">
+      <button class="btn btn-ghost" onclick="cl('m-c')">Cancelar</button>
+      <button class="btn btn-accent" id="fsv" onclick="sv()">Crear ticket</button>
+    </div>
   </div>
 </div>
 
+<!-- MODAL DETALLE -->
 <div class="overlay hidden" id="m-d" onclick="bc(event,'m-d')">
   <div class="modal modal-lg">
     <div class="mh"><div><h2 id="dt"></h2><div class="mh-sub" id="dsub"></div></div><button class="xb" onclick="cl('m-d')">✕</button></div>
     <div class="dba" id="dba"></div>
     <div class="dg">
-      <div class="di"><label>Estado</label><select id="ds" onchange="upd('status',this.value)"><option value="abierto">Abierto</option><option value="en progreso">En progreso</option><option value="revisión">En revisión</option><option value="resuelto">Resuelto</option><option value="cerrado">Cerrado</option></select></div>
-      <div class="di"><label>Prioridad</label><select id="dp" onchange="upd('priority',this.value)"><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option><option value="crítica">Crítica</option></select></div>
+      <div class="di"><label>Sede</label>
+        <select id="dse" onchange="upd('sede',this.value)">
+          <option value="">— Sin sede —</option>
+          <optgroup label="Medellín">
+            <option>OSL Suramericana</option><option>OSL Arkadia</option><option>OSL Bolivariana</option>
+            <option>OSL Pablo Tobón</option><option>OSL Florida</option><option>OSL Plaza Fabricato</option>
+            <option>OSL Florida 2</option><option>Clínica Sede Poblado</option><option>OSL Premium Plaza</option>
+            <option>OSL Punto Clave</option><option>OSL Molinos</option><option>OSL Sandiego</option>
+            <option>OSL Estación Niquía</option><option>OSL Bello</option><option>OSL Puerta del Norte</option>
+            <option>Clínica Sede Niquía</option><option>OSL Oviedo</option><option>OSL El Tesoro</option>
+            <option>OSL Santa Fe</option><option>OSL Envigado 1</option><option>OSL Envigado 2</option>
+            <option>OSL Viva Envigado</option><option>OSL Alma Mater</option><option>OSL Sucre</option>
+            <option>OSL Avenida Oriental</option><option>OSL La Central</option><option>Patio Bonito</option>
+            <option>Clínica Bolivariana</option><option>Aventura</option><option>OSL Poblado</option>
+            <option>Casa Administrativa</option>
+          </optgroup>
+          <optgroup label="Rionegro">
+            <option>OSL Rionegro 1</option><option>OSL Rionegro 2</option>
+            <option>OSL Rionegro 3</option><option>OSL Rionegro 4</option>
+          </optgroup>
+          <optgroup label="Itagüí / Sur">
+            <option>OSL Itagüí 1</option><option>OSL Mayorca</option>
+            <option>OSL Arrayanes</option><option>OSL Mayorca 2</option>
+          </optgroup>
+          <optgroup label="Bogotá">
+            <option>Nuestro Bogotá</option><option>Andino</option>
+            <option>Gran Estación</option><option>Tunja</option>
+          </optgroup>
+          <optgroup label="Urabá">
+            <option>Plaza del Río</option><option>Nuestro Urabá</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="di"><label>Estado</label>
+        <select id="ds" onchange="upd('status',this.value)"><option value="abierto">Abierto</option><option value="en progreso">En progreso</option><option value="revisión">En revisión</option><option value="resuelto">Resuelto</option><option value="cerrado">Cerrado</option></select>
+      </div>
+      <div class="di"><label>Prioridad</label>
+        <select id="dp" onchange="upd('priority',this.value)"><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option><option value="crítica">Crítica</option></select>
+      </div>
       <div class="di"><label>Responsable</label><input id="da" onblur="upd('assignee',this.value)"/></div>
-      <div class="di"><label>Sede</label><select id="dse" onchange="upd('sede',this.value)"><option value="">— Sin sede —</option><option>Bogotá</option><option>Medellín</option><option>Cali</option><option>Barranquilla</option><option>Bucaramanga</option><option>Otra</option></select></div>
-      <div class="di"><label>Categoría</label><select id="dc" onchange="upd('category',this.value)"><option value="">— —</option><option>Bug</option><option>Feature</option><option>Soporte</option><option>Infraestructura</option><option>Consulta</option><option>Otro</option></select></div>
       <div class="di"><label>Fecha límite</label><input id="ddue" type="date" onblur="upd('due',this.value)"/></div>
       <div class="di"><label>Creado</label><div class="dv" id="dcr"></div></div>
       <div class="di"><label>Actualizado</label><div class="dv" id="dup"></div></div>
     </div>
     <div class="ds"><h4>Descripción</h4><div class="dd" id="ddesc" contenteditable="true" onblur="upd('description',this.innerText.trim())"></div></div>
-    <hr class="div"/>
-    <div class="ds"><h4>Comentarios y notas</h4><div class="cl" id="dcl"></div>
-      <div class="ca2"><input id="ci" placeholder="Agregar nota… (Enter para guardar)" onkeydown="if(event.key==='Enter')ac()"/><button class="btn btn-ghost btn-sm" onclick="ac()">Agregar</button></div>
+    <hr class="divhr"/>
+    <div class="ds">
+      <h4>Comentarios e imágenes de referencia</h4>
+      <div class="cl" id="dcl"></div>
+      <div class="ca2">
+        <div class="ca2-row">
+          <input id="ci" placeholder="Agregar comentario o nota… (Enter)=" onkeydown="if(event.key==='Enter')ac()"/>
+          <button class="btn btn-ghost btn-sm" onclick="ac()">Agregar</button>
+        </div>
+        <div class="img-add-wrap">
+          <input id="ii" placeholder="📎 Pegar URL de imagen (https://...jpg / .png / .gif)"/>
+          <button class="btn btn-ghost btn-sm" onclick="ai()">+ Imagen</button>
+        </div>
+        <div class="img-hint">💡 Sube tu imagen a <strong>imgur.com</strong> (gratis, sin cuenta) y pega el link aquí</div>
+      </div>
     </div>
-    <div class="mf"><button class="btn btn-danger btn-sm" onclick="dl()">Eliminar</button><button class="btn btn-ghost" onclick="oe()">Editar</button><button class="btn btn-accent" onclick="cl('m-d')">Cerrar</button></div>
+    <div class="mf">
+      <button class="btn btn-danger btn-sm" onclick="dl()">Eliminar</button>
+      <button class="btn btn-ghost" onclick="oe()">Editar</button>
+      <button class="btn btn-accent" onclick="cl('m-d')">Cerrar</button>
+    </div>
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox hidden" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕ Cerrar</button>
+  <img id="lb-img" src="" alt=""/>
+</div>
+
 <script>
-const KEY='tix_v4';
+const KEY='tix_v5';
 let T=[],ctr=1,fSt='all',fPr=null,eid=null;
 function sv_(){try{localStorage.setItem(KEY,JSON.stringify({T,ctr}))}catch(e){}}
 function ld_(){try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d){T=d.T||[];ctr=d.ctr||1}}catch(e){}ra()}
 function $i(id){return document.getElementById(id)}
 function set(id,v){const e=$i(id);if(e)e.textContent=v}
 function ra(){rs();render()}
+
 function rs(){
   const tot=T.length,op=T.filter(t=>t.status==='abierto').length,pr=T.filter(t=>t.status==='en progreso').length;
   const cr=T.filter(t=>t.priority==='crítica').length,dn=T.filter(t=>t.status==='resuelto'||t.status==='cerrado').length;
-  const rv=T.filter(t=>t.status==='revisión').length,cl=T.filter(t=>t.status==='cerrado').length,hi=T.filter(t=>t.priority==='alta').length;
+  const rv=T.filter(t=>t.status==='revisión').length,cl2=T.filter(t=>t.status==='cerrado').length,hi=T.filter(t=>t.priority==='alta').length;
   set('st-t',tot);set('st-o',op);set('st-p',pr);set('st-c',cr);set('st-d',dn);
-  set('c-all',tot);set('c-op',op);set('c-pr',pr);set('c-rv',rv);set('c-dn',dn);set('c-cl',cl);set('c-cr',cr);set('c-hi',hi);
+  set('c-all',tot);set('c-op',op);set('c-pr',pr);set('c-rv',rv);set('c-dn',dn);set('c-cl',cl2);set('c-cr',cr);set('c-hi',hi);
   set('s-t',tot);set('s-p',op+pr+rv);
 }
+
 function render(){
-  const q=$i('q').value.toLowerCase(),sf=$i('sede-f').value;
+  const q=$i('q').value.toLowerCase(),sf2=$i('sede-f').value;
   let list=T.filter(t=>{
     if(fPr&&t.priority!==fPr)return false;
     if(!fPr&&fSt!=='all'&&t.status!==fSt)return false;
-    if(sf&&t.sede!==sf)return false;
-    if(q&&![t.title,t.description,t.assignee,t.sede,t.category,t.id].join(' ').toLowerCase().includes(q))return false;
+    if(sf2&&t.sede!==sf2)return false;
+    if(q&&![t.title,t.description,t.assignee,t.sede,t.id].join(' ').toLowerCase().includes(q))return false;
     return true;
   });
   const tb=$i('tb');
@@ -264,67 +418,113 @@ function render(){
   tb.innerHTML=list.map(t=>{
     const sc=sc_(t.status),pc=pc_(t.priority);
     const ini=(t.assignee||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const hasImg=t.comments&&t.comments.some(c=>c.type==='img');
     return`<tr class="trow" onclick="od('${t.id}')">
       <td class="td-id">#${t.id}</td>
+      <td class="td-m" style="font-weight:500;color:var(--text)">${e_(t.sede||'—')}</td>
       <td class="td-title">${e_(t.title)}${t.description?`<div class="td-prev">${e_(t.description)}</div>`:''}</td>
       <td><span class="badge ${sc}"><span class="bd"></span>${t.status}</span></td>
       <td><span class="badge ${pc}">${t.priority}</span></td>
       <td><div class="ac"><div class="ava">${ini}</div><span class="td-m">${e_(t.assignee||'—')}</span></div></td>
-      <td class="td-m">${e_(t.sede||'—')}</td>
-      <td class="td-m">${fmt(t.createdAt)}</td>
+      <td class="td-m">${fmt(t.createdAt)}${hasImg?' 🖼️':''}</td>
     </tr>`;
   }).join('');
 }
+
 function sf(f,el){fSt=f;fPr=null;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');$i('vt').textContent=el.textContent.trim().replace(/\d+$/,'').trim();render()}
 function sp(p,el){fPr=p;fSt='all';document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');$i('vt').textContent='Prioridad: '+p;render()}
+
 function oc(){
   eid=null;$i('mt').textContent='Nuevo ticket';$i('ms').textContent='#'+String(ctr).padStart(4,'0');$i('fsv').textContent='Crear ticket';
-  ['ft','fd','fa'].forEach(id=>$i(id).value='');$i('fs').value='abierto';$i('fp').value='media';$i('fse').value='';$i('fc').value='';$i('fdue').value='';
-  sh('m-c');setTimeout(()=>$i('ft').focus(),80);
+  ['ft','fd','fa'].forEach(id=>$i(id).value='');
+  $i('fs').value='abierto';$i('fp').value='media';$i('fse').value='';$i('fdue').value='';
+  sh('m-c');setTimeout(()=>$i('fse').focus(),80);
 }
+
 function sv(){
-  const title=$i('ft').value.trim();if(!title){$i('ft').focus();return}
+  const sede=$i('fse').value,title=$i('ft').value.trim();
+  if(!sede){$i('fse').focus();return}
+  if(!title){$i('ft').focus();return}
   const now=new Date().toISOString();
-  const data={title,description:$i('fd').value.trim(),status:$i('fs').value,priority:$i('fp').value,assignee:$i('fa').value.trim(),sede:$i('fse').value,category:$i('fc').value,due:$i('fdue').value,updatedAt:now};
+  const data={sede,title,description:$i('fd').value.trim(),status:$i('fs').value,priority:$i('fp').value,assignee:$i('fa').value.trim(),due:$i('fdue').value,updatedAt:now};
   if(eid){const i=T.findIndex(t=>t.id===eid);if(i>-1)T[i]={...T[i],...data}}
   else{const id=String(ctr++).padStart(4,'0');T.unshift({id,...data,createdAt:now,comments:[]})}
   sv_();cl('m-c');ra();
 }
+
 function od(id){
   const t=T.find(x=>x.id===id);if(!t)return;eid=id;
   $i('dt').textContent=t.title;
-  $i('dsub').textContent='#'+t.id+(t.category?' · '+t.category:'')+(t.due?' · Vence '+fmt(t.due):'');
+  $i('dsub').textContent='#'+t.id+(t.sede?' · '+t.sede:'')+(t.due?' · Vence '+fmt(t.due):'');
   $i('dba').innerHTML=`<span class="badge ${sc_(t.status)}"><span class="bd"></span>${t.status}</span><span class="badge ${pc_(t.priority)}">${t.priority}</span>${t.sede?`<span class="badge" style="background:rgba(232,255,71,0.1);color:var(--accent2)">📍 ${t.sede}</span>`:''}`;
-  $i('ds').value=t.status;$i('dp').value=t.priority;$i('da').value=t.assignee||'';$i('dse').value=t.sede||'';$i('dc').value=t.category||'';$i('ddue').value=t.due||'';
+  $i('ds').value=t.status;$i('dp').value=t.priority;$i('da').value=t.assignee||'';
+  $i('dse').value=t.sede||'';$i('ddue').value=t.due||'';
   $i('dcr').textContent=fmt(t.createdAt);$i('dup').textContent=fmt(t.updatedAt);
-  $i('ddesc').innerText=t.description||'Sin descripción.';rc(t.comments||[]);sh('m-d');
+  $i('ddesc').innerText=t.description||'Sin descripción.';
+  rc(t.comments||[]);sh('m-d');
 }
+
 function rc(c){
   const el=$i('dcl');
-  if(!c.length){el.innerHTML='<div style="font-size:12px;color:var(--text3);padding:3px 0">Aún no hay comentarios.</div>';return}
-  el.innerHTML=c.map(x=>`<div class="ci"><div class="cd">${fmt(x.at)}</div><div class="ct">${e_(x.text)}</div></div>`).join('');
+  if(!c.length){el.innerHTML='<div style="font-size:12px;color:var(--text3);padding:3px 0">Sin comentarios aún.</div>';return}
+  el.innerHTML=c.map(x=>{
+    if(x.type==='img'){
+      return`<div class="ci"><div class="cd">🖼️ Imagen · ${fmt(x.at)}</div><div class="c-img"><img src="${e_(x.url)}" alt="Imagen de referencia" onclick="openLB('${e_(x.url)}')" onerror="this.parentElement.innerHTML='<div class=c-img-url>⚠️ No se pudo cargar: ${e_(x.url)}</div>'"/></div></div>`;
+    }
+    return`<div class="ci"><div class="cd">${fmt(x.at)}</div><div class="ct">${e_(x.text)}</div></div>`;
+  }).join('');
   el.scrollTop=el.scrollHeight;
 }
+
 function ac(){
   const inp=$i('ci'),text=inp.value.trim();if(!text||!eid)return;
   const i=T.findIndex(t=>t.id===eid);if(i<0)return;
-  if(!T[i].comments)T[i].comments=[];T[i].comments.push({text,at:new Date().toISOString()});T[i].updatedAt=new Date().toISOString();
+  if(!T[i].comments)T[i].comments=[];
+  T[i].comments.push({type:'text',text,at:new Date().toISOString()});
+  T[i].updatedAt=new Date().toISOString();
   inp.value='';rc(T[i].comments);sv_();rs();
 }
+
+function ai(){
+  const inp=$i('ii'),url=inp.value.trim();if(!url||!eid)return;
+  if(!/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url)&&!url.includes('imgur')&&!url.includes('drive.google')&&!url.includes('ibb.co')&&!url.includes('postimg')){
+    alert('Por favor ingresa una URL válida de imagen (debe terminar en .jpg, .png, .gif, etc.)');return;
+  }
+  const i=T.findIndex(t=>t.id===eid);if(i<0)return;
+  if(!T[i].comments)T[i].comments=[];
+  T[i].comments.push({type:'img',url,at:new Date().toISOString()});
+  T[i].updatedAt=new Date().toISOString();
+  inp.value='';rc(T[i].comments);sv_();rs();
+}
+
+function openLB(url){$i('lb-img').src=url;$i('lb').classList.remove('hidden')}
+function closeLB(){$i('lb').classList.add('hidden');$i('lb-img').src=''}
+
 function upd(f,v){
   if(!eid)return;const i=T.findIndex(t=>t.id===eid);if(i<0)return;
   T[i][f]=v;T[i].updatedAt=new Date().toISOString();sv_();ra();
-  const t=T[i];$i('dba').innerHTML=`<span class="badge ${sc_(t.status)}"><span class="bd"></span>${t.status}</span><span class="badge ${pc_(t.priority)}">${t.priority}</span>${t.sede?`<span class="badge" style="background:rgba(232,255,71,0.1);color:var(--accent2)">📍 ${t.sede}</span>`:''}`;
+  const t=T[i];
+  $i('dba').innerHTML=`<span class="badge ${sc_(t.status)}"><span class="bd"></span>${t.status}</span><span class="badge ${pc_(t.priority)}">${t.priority}</span>${t.sede?`<span class="badge" style="background:rgba(232,255,71,0.1);color:var(--accent2)">📍 ${t.sede}</span>`:''}`;
 }
-function oe(){const t=T.find(x=>x.id===eid);if(!t)return;cl('m-d');eid=t.id;$i('mt').textContent='Editar ticket';$i('ms').textContent='#'+t.id;$i('fsv').textContent='Guardar cambios';$i('ft').value=t.title;$i('fd').value=t.description||'';$i('fs').value=t.status;$i('fp').value=t.priority;$i('fa').value=t.assignee||'';$i('fse').value=t.sede||'';$i('fc').value=t.category||'';$i('fdue').value=t.due||'';sh('m-c')}
+
+function oe(){
+  const t=T.find(x=>x.id===eid);if(!t)return;cl('m-d');eid=t.id;
+  $i('mt').textContent='Editar ticket';$i('ms').textContent='#'+t.id;$i('fsv').textContent='Guardar cambios';
+  $i('fse').value=t.sede||'';$i('ft').value=t.title;$i('fd').value=t.description||'';
+  $i('fs').value=t.status;$i('fp').value=t.priority;$i('fa').value=t.assignee||'';$i('fdue').value=t.due||'';
+  sh('m-c');
+}
+
 function dl(){if(!eid||!confirm('¿Eliminar este ticket?'))return;T=T.filter(t=>t.id!==eid);sv_();cl('m-d');ra()}
+
 function sc_(s){return{abierto:'s0','en progreso':'s1','revisión':'s2',resuelto:'s3',cerrado:'s4'}[s]||'s0'}
 function pc_(p){return{baja:'p0',media:'p1',alta:'p2','crítica':'p3'}[p]||'p1'}
 function fmt(iso){if(!iso)return'—';return new Date(iso).toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'})}
-function e_(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function e_(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function sh(id){$i(id).classList.remove('hidden')}
 function cl(id){$i(id).classList.add('hidden');eid=null}
 function bc(e,id){if(e.target.id===id)cl(id)}
+
 ld_();
 </script>
 </body>
