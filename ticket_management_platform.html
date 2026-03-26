@@ -1,0 +1,398 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+:root {
+  --col-open: #E6F1FB; --col-open-t: #0C447C;
+  --col-prog: #FAEEDA; --col-prog-t: #633806;
+  --col-rev: #EEEDFE; --col-rev-t: #3C3489;
+  --col-done: #EAF3DE; --col-done-t: #27500A;
+  --col-closed: #F1EFE8; --col-closed-t: #444441;
+  --p-low: #EAF3DE; --p-low-t: #27500A;
+  --p-med: #FAEEDA; --p-med-t: #633806;
+  --p-high: #FAECE7; --p-high-t: #4A1B0C;
+  --p-crit: #FCEBEB; --p-crit-t: #501313;
+}
+#app { padding: 1rem 0; min-height: 600px; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 8px; }
+.header h1 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+.header-actions { display: flex; gap: 8px; }
+.btn-primary { background: var(--color-text-primary); color: var(--color-background-primary); border: none; border-radius: var(--border-radius-md); padding: 8px 16px; font-size: 13px; font-weight: 500; cursor: pointer; }
+.btn-secondary { background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 8px 12px; font-size: 13px; cursor: pointer; }
+.btn-primary:hover { opacity: 0.85; }
+.btn-secondary:hover { background: var(--color-background-secondary); }
+
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
+.stat-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; }
+.stat-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.stat-num { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+
+.filters { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; }
+.filter-chip { background: transparent; border: 0.5px solid var(--color-border-tertiary); border-radius: 20px; padding: 4px 12px; font-size: 12px; color: var(--color-text-secondary); cursor: pointer; }
+.filter-chip.active { background: var(--color-text-primary); color: var(--color-background-primary); border-color: transparent; }
+.search-bar { flex: 1; min-width: 160px; padding: 6px 12px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); font-size: 13px; background: var(--color-background-primary); color: var(--color-text-primary); }
+.search-bar:focus { outline: none; border-color: var(--color-border-primary); }
+
+.tickets-list { display: flex; flex-direction: column; gap: 8px; }
+.ticket-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; cursor: pointer; transition: border-color 0.15s; }
+.ticket-card:hover { border-color: var(--color-border-secondary); }
+.ticket-card.selected { border-color: var(--color-border-primary); }
+.tc-row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+.ticket-id { font-size: 11px; color: var(--color-text-tertiary); font-weight: 500; }
+.badge { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 10px; }
+.tc-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.tc-meta { display: flex; gap: 12px; font-size: 12px; color: var(--color-text-secondary); flex-wrap: wrap; }
+
+.modal-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1rem; z-index: 100; overflow-y: auto; }
+.modal { background: var(--color-background-primary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); width: 100%; max-width: 540px; padding: 1.5rem; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.modal-header h2 { font-size: 16px; font-weight: 500; }
+.close-btn { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--color-text-secondary); padding: 2px 6px; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 5px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px 10px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); font-size: 13px; background: var(--color-background-primary); color: var(--color-text-primary); font-family: var(--font-sans); }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--color-border-primary); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.25rem; }
+
+.detail-modal { max-width: 600px; }
+.detail-section { margin-bottom: 1.25rem; }
+.detail-section h3 { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+.detail-section p { font-size: 14px; color: var(--color-text-primary); line-height: 1.6; }
+.comments-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; max-height: 200px; overflow-y: auto; }
+.comment-item { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 8px 12px; }
+.comment-meta { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 4px; }
+.comment-text { font-size: 13px; color: var(--color-text-primary); }
+.comment-input-row { display: flex; gap: 8px; }
+.comment-input-row input { flex: 1; }
+.empty-state { text-align: center; padding: 3rem 1rem; color: var(--color-text-tertiary); font-size: 14px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.detail-item label { font-size: 11px; color: var(--color-text-tertiary); display: block; margin-bottom: 3px; }
+.detail-item span { font-size: 13px; color: var(--color-text-primary); font-weight: 500; }
+.select-inline { padding: 4px 8px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); font-size: 12px; background: var(--color-background-primary); color: var(--color-text-primary); cursor: pointer; }
+.delete-btn { background: transparent; color: var(--color-text-danger, #A32D2D); border: 0.5px solid var(--color-border-danger, #F09595); border-radius: var(--border-radius-md); padding: 6px 12px; font-size: 12px; cursor: pointer; }
+.delete-btn:hover { background: var(--color-background-danger, #FCEBEB); }
+</style>
+
+<div id="app">
+  <div class="header">
+    <h1>Gestión de tickets</h1>
+    <div class="header-actions">
+      <button class="btn-primary" onclick="openCreateModal()">+ Nuevo ticket</button>
+    </div>
+  </div>
+  <div class="stats-row" id="stats-row"></div>
+  <div class="filters">
+    <input class="search-bar" id="search-input" placeholder="Buscar tickets..." oninput="renderTickets()" />
+    <button class="filter-chip active" onclick="setFilter('all', this)">Todos</button>
+    <button class="filter-chip" onclick="setFilter('abierto', this)">Abierto</button>
+    <button class="filter-chip" onclick="setFilter('en progreso', this)">En progreso</button>
+    <button class="filter-chip" onclick="setFilter('revisión', this)">Revisión</button>
+    <button class="filter-chip" onclick="setFilter('resuelto', this)">Resuelto</button>
+    <button class="filter-chip" onclick="setFilter('cerrado', this)">Cerrado</button>
+  </div>
+  <div class="tickets-list" id="tickets-list"></div>
+</div>
+
+<div id="modal-create" style="display:none" class="modal-bg">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Nuevo ticket</h2>
+      <button class="close-btn" onclick="closeModals()">×</button>
+    </div>
+    <div class="form-group">
+      <label>Título *</label>
+      <input id="f-title" type="text" placeholder="Descripción breve del requerimiento" />
+    </div>
+    <div class="form-group">
+      <label>Descripción</label>
+      <textarea id="f-desc" placeholder="Detalle del requerimiento..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Estado</label>
+        <select id="f-status">
+          <option value="abierto">Abierto</option>
+          <option value="en progreso">En progreso</option>
+          <option value="revisión">Revisión</option>
+          <option value="resuelto">Resuelto</option>
+          <option value="cerrado">Cerrado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Prioridad</label>
+        <select id="f-priority">
+          <option value="baja">Baja</option>
+          <option value="media" selected>Media</option>
+          <option value="alta">Alta</option>
+          <option value="crítica">Crítica</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Responsable</label>
+        <input id="f-assignee" type="text" placeholder="Nombre del responsable" />
+      </div>
+      <div class="form-group">
+        <label>Categoría</label>
+        <input id="f-category" type="text" placeholder="Ej: Bug, Feature, Soporte" />
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModals()">Cancelar</button>
+      <button class="btn-primary" id="save-btn" onclick="saveTicket()">Crear ticket</button>
+    </div>
+  </div>
+</div>
+
+<div id="modal-detail" style="display:none" class="modal-bg">
+  <div class="modal detail-modal">
+    <div class="modal-header">
+      <div>
+        <span style="font-size:11px;color:var(--color-text-tertiary)" id="d-id"></span>
+        <h2 id="d-title" style="margin-top:3px"></h2>
+      </div>
+      <button class="close-btn" onclick="closeModals()">×</button>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <label>Estado</label>
+        <select class="select-inline" id="d-status" onchange="updateField('status', this.value)"></select>
+      </div>
+      <div class="detail-item">
+        <label>Prioridad</label>
+        <select class="select-inline" id="d-priority" onchange="updateField('priority', this.value)"></select>
+      </div>
+      <div class="detail-item">
+        <label>Responsable</label>
+        <span id="d-assignee" contenteditable="true" style="outline:none;border-bottom:0.5px dashed var(--color-border-tertiary);padding-bottom:1px;" onblur="updateField('assignee', this.textContent.trim())"></span>
+      </div>
+      <div class="detail-item">
+        <label>Categoría</label>
+        <span id="d-category" contenteditable="true" style="outline:none;border-bottom:0.5px dashed var(--color-border-tertiary);padding-bottom:1px;" onblur="updateField('category', this.textContent.trim())"></span>
+      </div>
+      <div class="detail-item">
+        <label>Creado</label>
+        <span id="d-created"></span>
+      </div>
+      <div class="detail-item">
+        <label>Actualizado</label>
+        <span id="d-updated"></span>
+      </div>
+    </div>
+    <div class="detail-section">
+      <h3>Descripción</h3>
+      <p id="d-desc" contenteditable="true" style="outline:none;border:0.5px dashed var(--color-border-tertiary);border-radius:6px;padding:8px;min-height:40px;font-size:14px;line-height:1.6;" onblur="updateField('description', this.textContent.trim())"></p>
+    </div>
+    <div class="detail-section">
+      <h3>Comentarios y notas</h3>
+      <div class="comments-list" id="d-comments"></div>
+      <div class="comment-input-row">
+        <input id="comment-input" type="text" placeholder="Agregar nota o comentario..." onkeydown="if(event.key==='Enter')addComment()" />
+        <button class="btn-secondary" onclick="addComment()">Agregar</button>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:1rem;">
+      <button class="delete-btn" onclick="deleteTicket()">Eliminar ticket</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STATUS_COLORS = {
+  'abierto': {bg:'#E6F1FB',t:'#0C447C'},
+  'en progreso': {bg:'#FAEEDA',t:'#633806'},
+  'revisión': {bg:'#EEEDFE',t:'#3C3489'},
+  'resuelto': {bg:'#EAF3DE',t:'#27500A'},
+  'cerrado': {bg:'#F1EFE8',t:'#444441'}
+};
+const PRIORITY_COLORS = {
+  'baja': {bg:'#EAF3DE',t:'#27500A'},
+  'media': {bg:'#FAEEDA',t:'#633806'},
+  'alta': {bg:'#FAECE7',t:'#4A1B0C'},
+  'crítica': {bg:'#FCEBEB',t:'#501313'}
+};
+
+let tickets = [];
+let currentFilter = 'all';
+let editingId = null;
+let counter = 1;
+
+async function loadData() {
+  try {
+    const r = await window.storage.get('tickets-data');
+    if (r && r.value) {
+      const d = JSON.parse(r.value);
+      tickets = d.tickets || [];
+      counter = d.counter || 1;
+    }
+  } catch(e) { tickets = []; counter = 1; }
+  renderAll();
+}
+
+async function saveData() {
+  try {
+    await window.storage.set('tickets-data', JSON.stringify({tickets, counter}));
+  } catch(e) {}
+}
+
+function renderAll() { renderStats(); renderTickets(); }
+
+function renderStats() {
+  const total = tickets.length;
+  const open = tickets.filter(t => t.status === 'abierto').length;
+  const prog = tickets.filter(t => t.status === 'en progreso').length;
+  const crit = tickets.filter(t => t.priority === 'crítica').length;
+  const done = tickets.filter(t => t.status === 'resuelto' || t.status === 'cerrado').length;
+  document.getElementById('stats-row').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Total</div><div class="stat-num">${total}</div></div>
+    <div class="stat-card"><div class="stat-label">Abiertos</div><div class="stat-num">${open}</div></div>
+    <div class="stat-card"><div class="stat-label">En progreso</div><div class="stat-num">${prog}</div></div>
+    <div class="stat-card"><div class="stat-label">Críticos</div><div class="stat-num">${crit}</div></div>
+    <div class="stat-card"><div class="stat-label">Resueltos</div><div class="stat-num">${done}</div></div>
+  `;
+}
+
+function renderTickets() {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  let filtered = tickets.filter(t => {
+    const matchFilter = currentFilter === 'all' || t.status === currentFilter;
+    const matchSearch = !query || t.title.toLowerCase().includes(query) || (t.description||'').toLowerCase().includes(query) || (t.assignee||'').toLowerCase().includes(query) || (t.category||'').toLowerCase().includes(query);
+    return matchFilter && matchSearch;
+  });
+  const list = document.getElementById('tickets-list');
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-state">No hay tickets que coincidan</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(t => {
+    const sc = STATUS_COLORS[t.status] || {bg:'#F1EFE8',t:'#444441'};
+    const pc = PRIORITY_COLORS[t.priority] || {bg:'#FAEEDA',t:'#633806'};
+    return `<div class="ticket-card" onclick="openDetail('${t.id}')">
+      <div class="tc-row1">
+        <span class="ticket-id">#${t.id}</span>
+        <span class="badge" style="background:${sc.bg};color:${sc.t}">${t.status}</span>
+        <span class="badge" style="background:${pc.bg};color:${pc.t}">${t.priority}</span>
+        ${t.category ? `<span class="badge" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">${t.category}</span>` : ''}
+      </div>
+      <div class="tc-title">${t.title}</div>
+      <div class="tc-meta">
+        ${t.assignee ? `<span>👤 ${t.assignee}</span>` : ''}
+        <span>${fmtDate(t.createdAt)}</span>
+        ${t.comments && t.comments.length ? `<span>💬 ${t.comments.length}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setFilter(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderTickets();
+}
+
+function openCreateModal() {
+  editingId = null;
+  document.getElementById('modal-title').textContent = 'Nuevo ticket';
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-status').value = 'abierto';
+  document.getElementById('f-priority').value = 'media';
+  document.getElementById('f-assignee').value = '';
+  document.getElementById('f-category').value = '';
+  document.getElementById('save-btn').textContent = 'Crear ticket';
+  document.getElementById('modal-create').style.display = 'flex';
+}
+
+function saveTicket() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) { document.getElementById('f-title').focus(); return; }
+  const now = new Date().toISOString();
+  if (editingId) {
+    const idx = tickets.findIndex(t => t.id === editingId);
+    if (idx > -1) {
+      tickets[idx] = {...tickets[idx], title, description: document.getElementById('f-desc').value.trim(), status: document.getElementById('f-status').value, priority: document.getElementById('f-priority').value, assignee: document.getElementById('f-assignee').value.trim(), category: document.getElementById('f-category').value.trim(), updatedAt: now};
+    }
+  } else {
+    const id = String(counter++).padStart(4, '0');
+    tickets.unshift({id, title, description: document.getElementById('f-desc').value.trim(), status: document.getElementById('f-status').value, priority: document.getElementById('f-priority').value, assignee: document.getElementById('f-assignee').value.trim(), category: document.getElementById('f-category').value.trim(), createdAt: now, updatedAt: now, comments: []});
+  }
+  saveData(); closeModals(); renderAll();
+}
+
+function openDetail(id) {
+  const t = tickets.find(x => x.id === id);
+  if (!t) return;
+  editingId = id;
+  document.getElementById('d-id').textContent = '#' + t.id;
+  document.getElementById('d-title').textContent = t.title;
+  document.getElementById('d-desc').textContent = t.description || 'Sin descripción';
+  document.getElementById('d-assignee').textContent = t.assignee || '—';
+  document.getElementById('d-category').textContent = t.category || '—';
+  document.getElementById('d-created').textContent = fmtDate(t.createdAt);
+  document.getElementById('d-updated').textContent = fmtDate(t.updatedAt);
+  const statusSel = document.getElementById('d-status');
+  statusSel.innerHTML = ['abierto','en progreso','revisión','resuelto','cerrado'].map(s => `<option value="${s}" ${t.status===s?'selected':''}>${s}</option>`).join('');
+  const priSel = document.getElementById('d-priority');
+  priSel.innerHTML = ['baja','media','alta','crítica'].map(p => `<option value="${p}" ${t.priority===p?'selected':''}>${p}</option>`).join('');
+  renderComments(t.comments || []);
+  document.getElementById('modal-detail').style.display = 'flex';
+}
+
+function renderComments(comments) {
+  const el = document.getElementById('d-comments');
+  if (!comments.length) { el.innerHTML = '<div style="font-size:12px;color:var(--color-text-tertiary);padding:4px 0">Sin comentarios aún</div>'; return; }
+  el.innerHTML = comments.map(c => `<div class="comment-item"><div class="comment-meta">${fmtDate(c.createdAt)}</div><div class="comment-text">${c.text}</div></div>`).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function addComment() {
+  const inp = document.getElementById('comment-input');
+  const text = inp.value.trim();
+  if (!text || !editingId) return;
+  const idx = tickets.findIndex(t => t.id === editingId);
+  if (idx === -1) return;
+  if (!tickets[idx].comments) tickets[idx].comments = [];
+  tickets[idx].comments.push({text, createdAt: new Date().toISOString()});
+  tickets[idx].updatedAt = new Date().toISOString();
+  inp.value = '';
+  renderComments(tickets[idx].comments);
+  saveData(); renderStats();
+}
+
+function updateField(field, val) {
+  if (!editingId) return;
+  const idx = tickets.findIndex(t => t.id === editingId);
+  if (idx === -1) return;
+  tickets[idx][field] = val;
+  tickets[idx].updatedAt = new Date().toISOString();
+  saveData(); renderAll();
+}
+
+function deleteTicket() {
+  if (!editingId) return;
+  if (!confirm('¿Eliminar este ticket? Esta acción no se puede deshacer.')) return;
+  tickets = tickets.filter(t => t.id !== editingId);
+  saveData(); closeModals(); renderAll();
+}
+
+function closeModals() {
+  document.getElementById('modal-create').style.display = 'none';
+  document.getElementById('modal-detail').style.display = 'none';
+  editingId = null;
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('es-CO', {day:'2-digit',month:'short',year:'numeric'});
+}
+
+document.getElementById('modal-create').addEventListener('click', e => { if(e.target === document.getElementById('modal-create')) closeModals(); });
+document.getElementById('modal-detail').addEventListener('click', e => { if(e.target === document.getElementById('modal-detail')) closeModals(); });
+
+loadData();
+</script>
